@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import {Geolocation} from '@ionic-native/geolocation';
+import { Geolocation } from '@ionic-native/geolocation';
 import { GeoAulaProvider } from '../providers/geo-aula/geo-aula';
 
 @NgModule({
@@ -27,8 +27,8 @@ import { GeoAulaProvider } from '../providers/geo-aula/geo-aula';
     StatusBar,
     SplashScreen,
     Geolocation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    GeoAulaProvider
+    GeoAulaProvider,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
 export class AppModule {}

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Geolocation} from '@ionic-native/geolocation';
 import { NavController, Platform, AlertController } from 'ionic-angular';
+import { GeoAulaProvider } from '../../providers/geo-aula/geo-aula';
 
 declare var google : any;
 
@@ -13,11 +14,13 @@ export class HomePage {
   mapa: any;
   latitude: any;
   longitude: any;
+  enderecoPosicao: "";
 
   constructor(public navCtrl: NavController,
               public geolocatioin: Geolocation,
               private alertCtrl: AlertController,
-              public platform: Platform) {
+              public platform: Platform,
+              public geoAulaProvider: GeoAulaProvider) {
                 platform.ready().then(()=>{
                   this.obterPosicao();
                 });
@@ -28,6 +31,7 @@ export class HomePage {
       .then(res=> {
         this.latitude = res.coords.latitude;
         this.longitude = res.coords.longitude;
+        this.buscarEnderecoPorCoordenadas();
         this.loadMap();
       })
       .catch(
@@ -60,6 +64,16 @@ export class HomePage {
         
     });
     
+  }
+
+  buscarEnderecoPorCoordenadas(){
+    this.geoAulaProvider.buscarEndereco(this.latitude,
+                                        this.longitude)
+                                        .then ( retorno =>
+      {
+        console.log(retorno);
+        this.enderecoPosicao = retorno;
+      });
   }
 
 }

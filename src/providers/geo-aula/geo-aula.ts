@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+declare var google: any;
 
 /*
   Generated class for the GeoAulaProvider provider.
@@ -10,8 +11,25 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class GeoAulaProvider {
 
-  constructor(public http: HttpClient) {
+  constructor() {
     console.log('Hello GeoAulaProvider Provider');
+  }
+
+  buscarEndereco(lat, lng): any{
+    var geocoder = new google.maps.Geocoder();
+    return new Promise(function (resolve, reject)
+    {
+      geocoder.geocode({'location': new google.maps.LatLng(
+        lat,lng)}, function(results,status){
+          if(status == google.maps.GeocoderStatus.OK)
+          {
+            resolve(results[0]['Formatted_address']);
+          }
+          else {
+            reject(status);
+          }
+        });
+    });
   }
 
 }
