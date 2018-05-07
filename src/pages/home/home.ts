@@ -39,6 +39,7 @@ export class HomePage {
           console.log(error.message);
           this.latitude = -18.3768;
           this.longitude = -46.0325;
+          this.buscarEnderecoPorCoordenadas();
           this.loadMap();
         }
       )
@@ -67,12 +68,15 @@ export class HomePage {
   }
 
   buscarEnderecoPorCoordenadas(){
+   
     this.geoAulaProvider.buscarEndereco(this.latitude,
                                         this.longitude)
                                         .then ( retorno =>
       {
+        
         console.log(retorno);
         this.enderecoPosicao = retorno;
+        
       });
   }
 

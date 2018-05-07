@@ -23,7 +23,7 @@ export class GeoAulaProvider {
         lat,lng)}, function(results,status){
           if(status == google.maps.GeocoderStatus.OK)
           {
-            resolve(results[0]['Formatted_address']);
+            resolve(results[0]['formatted_address']);
           }
           else {
             reject(status);
