@@ -32,4 +32,19 @@ export class GeoAulaProvider {
     });
   }
 
+  buscarCoordenadas(endereco): any{
+    var geocoder = new google.maps.Geocoder();
+    return new Promise(function (resolve, reject)
+    {
+      geocoder.geocode({'address': endereco}, function(results,status){
+          if(status == google.maps.GeocoderStatus.OK)
+          {
+            resolve(results);
+          }
+          else {
+            reject(status);
+          }
+        });
+    });
+  }
 }

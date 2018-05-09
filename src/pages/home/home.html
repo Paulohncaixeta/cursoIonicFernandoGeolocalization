@@ -8,10 +8,26 @@
 
 <ion-content padding>
   <div>
-    <p>Latitude: {{latitude}}</p>
+    <p>Latitude:  {{latitude}}</p>
     <p>Longitude: {{longitude}}</p>
-    <p>Endereco: {{enderecoPosicao}}</p>
+    <p>Endereco:  {{enderecoPosicao}}</p>
+    <p>Latitude Destino:  {{latitudeDestino}}</p>
+    <p>Longitude Destino: {{longitudeDestino}}</p>
+    <p>Endereco Destino:  {{enderecoDestino}}</p>
   </div>
 
   <div id="map"></div>
+
+  <ion-fab right top>
+    <button ion-fab (tap)="novoLugar()">
+
+        <ion-icon name="pin"></ion-icon>
+        <ion-icon name="search"></ion-icon>
+
+    </button>
+
+    <button ion-fab (tap) = "rota()">
+      <ion-icon name="car"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>

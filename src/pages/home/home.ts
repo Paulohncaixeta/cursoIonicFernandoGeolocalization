@@ -16,6 +16,10 @@ export class HomePage {
   longitude: any;
   enderecoPosicao: "";
 
+  latitudeDestino: 0;
+  longitudeDestino: 0;
+  enderecoDestino: any = "";
+
   constructor(public navCtrl: NavController,
               public geolocatioin: Geolocation,
               private alertCtrl: AlertController,
@@ -31,14 +35,16 @@ export class HomePage {
       .then(res=> {
         this.latitude = res.coords.latitude;
         this.longitude = res.coords.longitude;
+        this.latitude = -18.5742094;
+        this.longitude = -46.513054499999996;
         this.buscarEnderecoPorCoordenadas();
         this.loadMap();
       })
       .catch(
         (error) => {
           console.log(error.message);
-          this.latitude = -18.3768;
-          this.longitude = -46.0325;
+          this.latitude = -18.5742094;
+          this.longitude = -46.513054499999996;
           this.buscarEnderecoPorCoordenadas();
           this.loadMap();
         }
@@ -64,6 +70,16 @@ export class HomePage {
                     this.longitude)
         
     });
+    if(this.latitudeDestino !=0)
+      {
+        let marcador2 = new google.maps.Marker({
+          icon: 'assets/imgs/iconeAqui.png',
+          map: this.mapa,
+          position: new google.maps.LatLng(
+                      this.latitudeDestino,
+                      this.longitudeDestino)
+        });
+      }
     
   }
 
@@ -77,6 +93,17 @@ export class HomePage {
         console.log(retorno);
         this.enderecoPosicao = retorno;
         
+      });
+  }
+
+  novoLugar(){
+    
+    this.enderecoDestino = "Rua Padre Caldeira, 231, Patos de Minas, MG"
+    this.geoAulaProvider.buscarCoordenadas(this.enderecoDestino)
+      .then (retorno => {
+        this.latitudeDestino = retorno[0].geometry.location.lat();
+        this.longitudeDestino = retorno[0].geometry.location.lng();
+        this.loadMap();
       });
   }
 
