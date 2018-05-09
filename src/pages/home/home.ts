@@ -107,4 +107,43 @@ export class HomePage {
       });
   }
 
+  rota(){
+    if (this.latitudeDestino !=0){
+      let diretionsService = new google.maps.diretionsService();
+      let diretionsDisplay = new google.maps.diretionsDisplay();
+
+      let startPosition = new google.maps.LatLng(
+          this.latitude,
+          this.longitude
+      );
+
+      const mapOptions = {
+        zoom:18,
+        center: startPosition,
+        disableDefaultUI: true
+      };
+
+      this.mapa = new google.maps.Map(document.getElementById('map'),
+      mapOptions);
+      diretionsDisplay.setMap(this.mapa);
+
+      const marker = new google.maps.Marker({
+        position: startPosition,
+        map: this.mapa,
+      });
+      
+      const request = {
+        origin: new google.maps.LatLng(this.latitude, this.longitude),
+          destination: new google.maps.LatLng(this.latitudeDestino, this.longitudeDestino),
+          travelMode: 'DRIVING'
+      };
+
+      diretionsService.route(request, (result, status) => {
+        if (status == 'ok') {
+          diretionsDisplay.setDirections(result);
+        }
+      });
+    }
+  }
+
 }
